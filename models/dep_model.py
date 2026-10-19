@@ -1,5 +1,5 @@
 from config.database import BaseDatos
-from models.departament import Departamento
+from models.departament import DepartamentoModelo
 
 
 class AccesoDepartamento:
@@ -10,10 +10,10 @@ class AccesoDepartamento:
             cur = con.cursor()
             cur.execute(
                 "INSERT INTO departamento (nombre, gerente_asociado) VALUES (?, ?)",
-                (depto.nombre, depto.gerente_asociado)
+                (depto.titulo, depto.encargado)
             )
             con.commit()
-            depto.id_departamento = cur.lastrowid
+            depto.codigo = cur.lastrowid
             return True
         except Exception as error:
             print("Error al guardar departamento en BD: " + str(error))
@@ -30,9 +30,10 @@ class AccesoDepartamento:
             cur.execute("SELECT id_departamento, nombre, gerente_asociado FROM departamento")
             registros = cur.fetchall()
             for reg in registros:
-                resultado.append(Departamento(reg['id_departamento'], reg['nombre'], reg['gerente_asociado']))
+                resultado.append(DepartamentoModelo(reg['id_departamento'], reg['nombre'], reg['gerente_asociado']))
         except Exception as error:
             print("Error al listar departamentos: " + str(error))
         finally:
             con.close()
         return resultado
+    

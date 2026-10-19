@@ -1,4 +1,4 @@
-from views.main_view import MainView
+from views.main_view import VistaPrincipal
 from controllers.employe_controllers import ControladorEmpleado
 from controllers.dep_controllers import ControladorDepartamento
 from controllers.proyecto_controllers import ControladorProyecto
@@ -8,7 +8,9 @@ from controllers.user_controllers import ControladorUsuario
 
 class ControladorPrincipal:
     def __init__(self):
-        self.vista = MainView()
+
+
+        self.vista = VistaPrincipal()
         self.ctrl_empleado = ControladorEmpleado()
         self.ctrl_departamento = ControladorDepartamento()
         self.ctrl_proyecto = ControladorProyecto()
@@ -17,7 +19,7 @@ class ControladorPrincipal:
 
     def iniciar(self):
         while True:
-            eleccion = self.vista.mostrar_menu()
+            eleccion = self.vista.desplegar_menu()
             if eleccion == 1:
                 self.ctrl_empleado.iniciar()
             elif eleccion == 2:
@@ -29,7 +31,7 @@ class ControladorPrincipal:
             elif eleccion == 5:
                 self.ctrl_usuario.iniciar()
             elif eleccion == 0:
-                self.vista.mostrar_mensaje("Gracias por usar el sistema ECOTECH. ¡Hasta pronto!")
+                self.vista.avisar("Gracias por usar el sistema ECOTECH. ¡Hasta pronto!")
                 break
             else:
-                self.vista.mostrar_mensaje("Opcion no valida. Por favor intente nuevamente.")
+                self.vista.avisar("Opcion no valida. Por favor intente nuevamente.")
